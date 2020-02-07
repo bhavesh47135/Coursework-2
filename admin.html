@@ -54,15 +54,6 @@
                 </form>
             </div>
 
-            <div class="findCourse">
-                <h1>Get Courses from a Provider</h1>
-                <form action="/findCourse" method="POST">
-                    <label for="provider">Provider:</label>
-                    <input required type="text" name="provider"> <br>
-                    <input type="submit">
-                </form>
-            </div>
-
             <div class="updateCourse">
                 <h1>Update a Course</h1>
                 <form action="/updateCourse" method="POST">
@@ -77,6 +68,19 @@
                     <label for="location">New Location:</label>
                     <input required type="text" name="location"> <br>
                     <label for="provider">New Provider:</label>
+                    <input required type="text" name="provider"> <br>
+                    <input type="submit">
+                </form>
+            </div>
+
+            <div class="deleteCourse">
+                <h1>Delete Course</h1>
+                <form action="/deleteCourse" method="POST">
+                    <label for="topic">Topic:</label>
+                    <input required type="text" name="topic"> <br>
+                    <label for="location">Location:</label>
+                    <input required type="text" name="location"> <br>
+                    <label for="provider">Provider:</label>
                     <input required type="text" name="provider"> <br>
                     <input type="submit">
                 </form>

@@ -140,9 +140,9 @@ app.post('/addCourse',function(req,res){
 app.post('/findCourse', function(req,res) {
     Course.find({ provider: req.body.provider }, (err, courses) => {
         if (err) return res.json("Unable to find courses requested!");
-        if (!courses) return res.json("Unable to find the course requested");
-        if (courses.length == 0) return res.json("Provider does not have any courses!"); //Check if provider has courses
-        res.send(courses); //Courses is not null, send response
+        if (!courses) return res.json("Provider does not have any courses!");
+        if (courses.length == 0) return res.json("Provider does not have any courses!");
+        res.send(courses);
     });
 });
 
@@ -163,20 +163,21 @@ app.post('/updateCourse', function(req,res) {
 
         res.json("Course updated!")
         console.log(updatedCourse);
-
+        res.sendFile(__dirname+'/admin.html');
     });
 })
 
 app.post('/deleteCourse', function(req,res) {
     Course.findOneAndDelete({
         provider: req.body.provider,
+        location: req.body.location,
         topic: req.body.topic
     }, (err, deletedCourse) => {
         if (err) return res.json("Unable to delete course requested!");
         if (!deletedCourse) return res.json("Unable to find the course requested");
         if (deletedCourse.topic == null) return res.json("Unable to find the course requested");
-        res.send(deletedCourse);
-
+        console.log(deletedCourse);
+        res.sendFile(__dirname+'/admin.html');
     })
 })
 
@@ -203,5 +204,11 @@ app.post('/createReview', function(req,res) {
             console.log(reviewedCourse);
             return res.sendFile(__dirname+'/reviews.html');
         });
+})
+
+var test = mongoose.courses.find( { reviews: { author: test } } )
+
+app.get('/test', function(req, res) {
+    res.json(test)
 })
 

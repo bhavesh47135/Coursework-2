@@ -1,0 +1,45 @@
+/* CSS GRID */
+
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; } /* all of the sections in the grid */
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+}
+
+.grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+}
+
+ul {
+    height: 100%;
+    padding: 0;
+    width: 140px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255); /* background colour of the nav bar */
+}
+
+li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 40px 10px; /* the first value is the space between the buttons vertically */
+    text-decoration: none;
+}
+
+.course {
+    border: solid lightblue;
+    /* width: 150px; */
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> School Activities </title>
+    <meta charset="utf-8"/>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="start.css">
+</head>
+
+<body>
+    <div class="signup">
+        <h2>Sign Up</h2>
+        <form id="signupForm" action="/newUser" method="POST">
+            <label for="username">Email: </label>
+            <input required type="email" name="username"> <br>
+            <label for="password">Password: </label>
+            <input required type="password" name="password"> <br>
+            <label for="type">Type of User?</label>
+            <select required name="type" v-model="type">
+                <option disabled selected value></option>
+                <option value="student">Student</option>
+                <option value="provider">Provider</option>
+            </select> <br>
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="login">
+        <h2>Log In</h2>
+        <form id="loginForm" action="/getUser" method="POST">
+            <label for="username">Email:</label>
+            <input required type="email" name="username"> <br>
+            <label for="password">Password:</label>
+            <input required type="password" name="password"> <br>
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="imgbox">
+        <img class="center-fit" src="basketball.jpg">
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

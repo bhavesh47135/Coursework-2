@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> School Activities </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body> 
+    <div class="grid-container"> <!-- CSS Grid -->
+        <div class="item1"> <!-- Header -->
+            <header>
+                <h1>School Activities</h1>
+            </header>
+        </div>
+        <div class="item2"> <!-- Nav Bar -->
+            <nav>
+                <ul>
+                    <li class="home"> <!-- name of button (item in the list) -->
+                        <a href="main.html">Home</a>
+                    </li>
+                    <li class="activities">
+                        <a href="activities.html">Classes</a>
+                    </li>
+                    <li class="reviews">
+                        <a href="reviews.html">Reviews</a>
+                    </li> <br>
+                </ul>
+            </nav>
+        </div>
+        <div class="item3">
+            <form id="reviews">
+                <label for="activity">Course: </label>
+                <input required type="text" id="activity" v-model="activity"> <br>
+                <label for="star">Stars: </label>
+                <select id="star" v-model="star">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                </select> <br>
+                <button v-on:click="submitReview"> Complete Review</button>
+            </form>
+            <button onclick="increase()">Submit Review</button>
+            <p id="displayReviews1"></p>
+            <p id="displayReviews2"></p>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+    <script>
+        var courses = []
+        var stars = []
+        var a = 1;
+        var x = "";
+        var y = "";
+
+        function increase(){
+            x = localStorage.getItem("course-" + a);
+            y = localStorage.getItem("stars-" + a);
+            document.getElementById("displayReviews1").innerHTML = "Course: " + x
+            document.getElementById("displayReviews2").innerHTML = "Rating: " + y + "/5"
+            a++;
+        }
+        
+        var reviewApp = new Vue ({
+            el: '#reviews',
+            data: {
+                activity: '',
+                star: '',
+            },
+            methods: {
+                submitReview: function() {
+                    activity = this.activity;
+                    star = this.star;
+                    courses.push(activity);
+                    stars.push(star);
+                    localStorage.setItem("course-" + a, activity);
+                    localStorage.setItem("stars-" + a, stars);
+                }
+            }
+        })
+        
+    </script>
+</body>
+
+</html>

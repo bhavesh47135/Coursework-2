@@ -1,4 +1,4 @@
-const Data = { topic: 'example', price: 'example', location: 'example' };
+const Data = {topic: 'example', price: 'example', location: 'example', provider: 'example'};
 
 var searchApp = new Vue ({
     el: '#search',

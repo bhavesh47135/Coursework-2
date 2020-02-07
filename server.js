@@ -67,7 +67,17 @@ const courseSchema = new Schema({
     provider:{
         type: String,
         required: true
-    }
+    },
+    reviews: [
+        {
+            author : {
+                type: String,
+            },
+            ranking : {
+                type: Number,
+            }
+        }
+    ]
 }, {
     versionKey: false
 });
@@ -96,6 +106,10 @@ app.get('/reviews.html',function(req,res){
     res.sendFile(__dirname+'/reviews.html');
 });
 
+app.get('/admin.html',function(req,res){
+    res.sendFile(__dirname+'/admin.html');
+});
+
 app.post('/newUser',function(req,res){
     const userData = new User(req.body);
     User.findOne({'username': req.body.username}, function(err, user) {
@@ -119,13 +133,15 @@ app.post('/addCourse',function(req,res){
     const courseData = new Course(req.body);
     courseData.save();
     console.log(courseData);
-    res.sendFile(__dirname+'/activities.html');
+    res.sendFile(__dirname+'/admin.html');
+    //res.status(204).send();
 });
 
 app.post('/findCourse', function(req,res) {
-    Course.find({ location: req.body.location }, (err, courses) => {
+    Course.find({ provider: req.body.provider }, (err, courses) => {
         if (err) return res.json("Unable to find courses requested!");
-        if (courses.length == 0) return res.json("Location does not have any courses!"); //Check if provider has courses
+        if (!courses) return res.json("Unable to find the course requested");
+        if (courses.length == 0) return res.json("Provider does not have any courses!"); //Check if provider has courses
         res.send(courses); //Courses is not null, send response
     });
 });
@@ -157,8 +173,8 @@ app.post('/deleteCourse', function(req,res) {
         topic: req.body.topic
     }, (err, deletedCourse) => {
         if (err) return res.json("Unable to delete course requested!");
+        if (!deletedCourse) return res.json("Unable to find the course requested");
         if (deletedCourse.topic == null) return res.json("Unable to find the course requested");
-        //Courses is not null, send response
         res.send(deletedCourse);
 
     })
@@ -171,7 +187,11 @@ app.post('/createReview', function(req,res) {
             topic: req.body.topic
         },
         (err, reviewedCourse) => {
-            if (err) return res.json("Unable to update courses requested!");
+            if (err) {
+                res.json("Unable to update courses requested!");
+                throw err;
+            }
+            if (!reviewedCourse) return res.json("Unable to find the course requested");
             if (reviewedCourse.topic == null) return res.json("Unable to find the course requested");
 
             reviewedCourse.reviews.push({
@@ -179,19 +199,9 @@ app.post('/createReview', function(req,res) {
                 ranking: req.body.ranking
             });
 
-            var totalRank = 0
-            for (let index = 0; index < reviewedCourse.reviews.length; index++) {
-                const rank = reviewedCourse.reviews[index].ranking;
-                totalRank+=rank;                
-            }
-            
-            averageRank = totalRank/reviewedCourse.reviews.length;
-
-            reviewedCourse.averageRank = averageRank;
-
             reviewedCourse.save();
-            //Courses is not null, send response
-            res.send(reviewedCourse);
+            console.log(reviewedCourse);
+            return res.sendFile(__dirname+'/reviews.html');
         });
 })
 

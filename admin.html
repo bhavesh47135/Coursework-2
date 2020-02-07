@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title> School Activities </title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="grid-container"> <!-- CSS Grid -->
+
+        <div class="item1"> <!-- Header -->
+            <header>
+                <h1>School Activities</h1>
+            </header>
+        </div>
+
+        <div class="item2"> <!-- Nav Bar -->
+            <nav>
+                <ul>
+                    <li class="home"> <!-- name of button (item in the list) -->
+                        <a href="main.html">Home</a>
+                    </li>
+                    <li class="activities">
+                        <a href="activities.html">Classes</a>
+                    </li>
+                    <li class="reviews">
+                        <a href="reviews.html">Reviews</a>
+                    </li>
+                    <li class="admin">
+                        <a href="admin.html">Admin</a>
+                    </li> <br>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="item3">
+
+            <div class="addCourse">
+                <h1>Add Course</h1>
+                <form action="/addCourse" method="POST">
+                    <label for="topic">Topic:</label>
+                    <input required type="text" name="topic"> <br>
+                    <label for="price">Price:</label>
+                    <input required type="number" name="price"> <br>
+                    <label for="location">Location:</label>
+                    <input required type="text" name="location"> <br>
+                    <label for="provider">Provider:</label>
+                    <input required type="text" name="provider"> <br>
+                    <input type="submit">
+                </form>
+            </div>
+
+            <div class="findCourse">
+                <h1>Get Courses from a Provider</h1>
+                <form action="/findCourse" method="POST">
+                    <label for="provider">Provider:</label>
+                    <input required type="text" name="provider"> <br>
+                    <input type="submit">
+                </form>
+            </div>
+
+            <div class="updateCourse">
+                <h1>Update a Course</h1>
+                <form action="/updateCourse" method="POST">
+                    <label for="oldTopic">Old Topic:</label>
+                    <input required type="text" name="oldTopic"> <br>
+                    <label for="oldProvider">Old Provider:</label>
+                    <input required type="text" name="oldProvider"> <br>
+                    <label for="topic">New Topic:</label>
+                    <input required type="text" name="topic"> <br>
+                    <label for="price">New Price:</label>
+                    <input required type="number" name="price"> <br>
+                    <label for="location">New Location:</label>
+                    <input required type="text" name="location"> <br>
+                    <label for="provider">New Provider:</label>
+                    <input required type="text" name="provider"> <br>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

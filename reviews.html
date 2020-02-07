@@ -27,65 +27,37 @@
                     </li>
                     <li class="reviews">
                         <a href="reviews.html">Reviews</a>
+                    </li>
+                    <li class="admin">
+                        <a href="admin.html">Admin</a>
                     </li> <br>
                 </ul>
             </nav>
         </div>
         <div class="item3">
-            <form id="reviews">
-                <label for="activity">Course: </label>
-                <input required type="text" id="activity" v-model="activity"> <br>
-                <label for="star">Stars: </label>
-                <select id="star" v-model="star">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+            <form id="review" action="/createReview" method="POST">
+                <label for="topic">Course: </label>
+                <input required type="text" name="topic"> <br>
+                <label for="provider">Provider: </label>
+                <input required type="text" name="provider"> <br>
+                <label for="author">Author: </label>
+                <input required type="text" name="author"> <br>
+                <label for="ranking">Review: (out of 5) </label>
+                <select required name="ranking">
+                    <option disabled selected value></option>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
                 </select> <br>
-                <button v-on:click="submitReview"> Complete Review</button>
+                <input type="submit">
             </form>
-            <button onclick="increase()">Submit Review</button>
-            <p id="displayReviews1"></p>
-            <p id="displayReviews2"></p>
         </div>
     </div>
 
-    <script src="login.js"></script>
-    <script>
-        var courses = []
-        var stars = []
-        var a = 1;
-        var x = "";
-        var y = "";
-
-        function increase(){
-            x = localStorage.getItem("course-" + a);
-            y = localStorage.getItem("stars-" + a);
-            document.getElementById("displayReviews1").innerHTML = "Course: " + x
-            document.getElementById("displayReviews2").innerHTML = "Rating: " + y + "/5"
-            a++;
-        }
-        
-        var reviewApp = new Vue ({
-            el: '#reviews',
-            data: {
-                activity: '',
-                star: '',
-            },
-            methods: {
-                submitReview: function() {
-                    activity = this.activity;
-                    star = this.star;
-                    courses.push(activity);
-                    stars.push(star);
-                    localStorage.setItem("course-" + a, activity);
-                    localStorage.setItem("stars-" + a, stars);
-                }
-            }
-        })
-        
-    </script>
+    <script src="main.js"></script>
 </body>
 
 </html>

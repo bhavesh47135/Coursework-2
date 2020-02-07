@@ -29,6 +29,9 @@
                     </li>
                     <li class="reviews">
                         <a href="reviews.html">Reviews</a>
+                    </li> 
+                    <li class="admin">
+                        <a href="admin.html">Admin</a>
                     </li> <br>
                 </ul>
             </nav>
@@ -52,49 +55,6 @@
                     </div>
                 </div>
             </div> <br>
-
-            <div class="addCourse">
-                <h1>Add Course</h1>
-                <form action="/addCourse" method="POST">
-                    <label for="topic">Topic:</label>
-                    <input required type="text" name="topic"> <br>
-                    <label for="price">Price:</label>
-                    <input required type="number" name="price"> <br>
-                    <label for="location">Location:</label>
-                    <input required type="text" name="location"> <br>
-                    <label for="provider">Provider:</label>
-                    <input required type="text" name="provider"> <br>
-                    <input type="submit">
-                </form>
-            </div>
-
-            <div class="findCourse">
-                <h1>Get Courses from a Provider</h1>
-                <form action="/findCourse" method="POST">
-                    <label for="provider">Provider:</label>
-                    <input required type="text" name="provider"> <br>
-                    <input type="submit">
-                </form>
-            </div>
-
-            <div class="updateCourse">
-                <h1>Update a Course</h1>
-                <form action="/updateCourse" method="POST">
-                    <label for="oldTopic">Old Topic:</label>
-                    <input required type="text" name="oldTopic"> <br>
-                    <label for="oldProvider">Old Provider:</label>
-                    <input required type="text" name="oldProvider"> <br>
-                    <label for="topic">New Topic:</label>
-                    <input required type="text" name="topic"> <br>
-                    <label for="price">New Price:</label>
-                    <input required type="number" name="price"> <br>
-                    <label for="location">New Location:</label>
-                    <input required type="text" name="location"> <br>
-                    <label for="provider">New Provider:</label>
-                    <input required type="text" name="provider"> <br>
-                    <input type="submit">
-                </form>
-            </div>
         </div>
     </div>
     <script src="main.js"></script>

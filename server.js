@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const _ = require('underscore');
 const session = require("express-session");
 
 app.set('port', process.env.PORT || 3000);
@@ -70,11 +71,11 @@ const courseSchema = new Schema({
     },
     reviews: [
         {
-            author : {
-                type: String,
+            author: {
+                type: String
             },
-            ranking : {
-                type: Number,
+            ranking: {
+                type: Number
             }
         }
     ]
@@ -187,7 +188,7 @@ app.post('/createReview', function(req,res) {
             provider: req.body.provider,
             topic: req.body.topic
         },
-        (err, reviewedCourse) => {
+        function(err, reviewedCourse) {
             if (err) {
                 res.json("Unable to update courses requested!");
                 throw err;
@@ -206,9 +207,52 @@ app.post('/createReview', function(req,res) {
         });
 })
 
-var test = mongoose.courses.find( { reviews: { author: test } } )
+app.post('/updateReview', function(req,res) {
+    Course.findOne(
+        {
+            provider: req.body.provider,
+            topic: req.body.topic
+        },
+        function(err, updatedReview) {
+            if (err) {
+                res.json("Unable to update courses requested!");
+                throw err;
+            }
+            if (!updatedReview) return res.json("Unable to find the course requested");
+            if (updatedReview.topic == null) return res.json("Unable to find the course requested");
 
-app.get('/test', function(req, res) {
-    res.json(test)
+            var courseReviews = updatedReview.reviews;
+            var reviewAuthor = req.body.author;
+            var reviewArr = courseReviews.filter(obj => {
+                return obj.author === reviewAuthor;
+            });
+
+            if (reviewArr == null | reviewArr == "") {
+                console.log("Author has not previously made a review!")
+            }
+            else {
+                var result = _.map(reviewArr, "author");
+
+                Course.findOneAndUpdate(
+                    {
+                        provider: req.body.provider,
+                        topic: req.body.topic
+                    },
+                    { "$pull": { "reviews": { "author": result } }},
+                    {multi : true},
+                    function(err, courseToUpdate) {
+                        if (err) throw err;
+                        console.log(courseToUpdate);
+                    }
+                )
+
+                updatedReview.reviews.push({
+                    author: req.body.author,
+                    ranking: req.body.ranking
+                });
+                updatedReview.save();
+            }
+            return res.sendFile(__dirname+'/reviews.html');
+    });
 })
 

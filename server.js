@@ -5,7 +5,6 @@ const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const _ = require('underscore');
-const session = require("express-session");
 
 app.set('port', process.env.PORT || 3000);
 
@@ -87,7 +86,20 @@ module.exports = Course;
 
 app.get("/courses", function(req, res) {
     Course.find({}, function(err, data){
-        return res.json(data);
+        var count = data.length;
+        var courseList = [];
+        var updatedList = [];
+        var topics = _.map(data, "topic");
+        var price = _.map(data, "price");
+        var location = _.map(data, "location");
+        var provider = _.map(data, "provider");
+
+        for (i = 0; i < count; i++) {
+            courseList[i] = "{'Topic':'" + topics[i] + "','Price':" + price[i] + ",'Location':'" + location[i] + "','Provider':'" + provider[i] + "'}"
+            var string = courseList[i];
+            updatedList[i] = JSON.parse("" + string.replace(/'/g,'"') + "");
+        }
+        res.json(updatedList)
     })
 });
 
@@ -143,7 +155,22 @@ app.post('/findCourse', function(req,res) {
         if (err) return res.json("Unable to find courses requested!");
         if (!courses) return res.json("Provider does not have any courses!");
         if (courses.length == 0) return res.json("Provider does not have any courses!");
-        res.send(courses);
+        //res.send(courses);
+
+        var count = courses.length;
+        var courseList = [];
+        var updatedList = [];
+        var topics = _.map(courses, "topic");
+        var price = _.map(courses, "price");
+        var location = _.map(courses, "location");
+        var provider = _.map(courses, "provider");
+
+        for (i = 0; i < count; i++) {
+            courseList[i] = "{'Topic':'" + topics[i] + "','Price':" + price[i] + ",'Location':'" + location[i] + "','Provider':'" + provider[i] + "'}"
+            var string = courseList[i];
+            updatedList[i] = JSON.parse("" + string.replace(/'/g,'"') + "");
+        }
+        res.json(updatedList)
     });
 });
 
@@ -228,7 +255,7 @@ app.post('/updateReview', function(req,res) {
             });
 
             if (reviewArr == null | reviewArr == "") {
-                console.log("Author has not previously made a review!")
+                res.json("Author has not previously made a review!")
             }
             else {
                 var result = _.map(reviewArr, "author");
@@ -251,6 +278,7 @@ app.post('/updateReview', function(req,res) {
                     ranking: req.body.ranking
                 });
                 updatedReview.save();
+                console.log(updatedReview)
             }
             return res.sendFile(__dirname+'/reviews.html');
     });

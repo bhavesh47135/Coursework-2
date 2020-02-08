@@ -23,14 +23,14 @@ var searchApp = new Vue ({
     },
     computed: {
         topics: function () { // return an array of all the topics
-            return [...new Set(this.courses.map(x => x.topic))]
+            return [...new Set(this.courses.map(x => x.Topic))]
             },
         locations: function () {
-            return [...new Set(this.courses.map(x => x.location))]
+            return [...new Set(this.courses.map(x => x.Location))]
         },
         filteredList() {
             return this.courses.filter(courses => {
-            return courses.topic.toLowerCase().includes(this.searchBar.toLowerCase())
+            return courses.Topic.toLowerCase().includes(this.searchBar.toLowerCase())
             })
         }
     }

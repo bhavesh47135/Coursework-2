@@ -213,6 +213,7 @@ app.post('/createReview', function(req,res) {
     Course.findOne(
         {
             provider: req.body.provider,
+            location: req.body.location,
             topic: req.body.topic
         },
         function(err, reviewedCourse) {
@@ -238,6 +239,7 @@ app.post('/updateReview', function(req,res) {
     Course.findOne(
         {
             provider: req.body.provider,
+            location: req.body.location,
             topic: req.body.topic
         },
         function(err, updatedReview) {
@@ -263,6 +265,7 @@ app.post('/updateReview', function(req,res) {
                 Course.findOneAndUpdate(
                     {
                         provider: req.body.provider,
+                        location: req.body.location,
                         topic: req.body.topic
                     },
                     { "$pull": { "reviews": { "author": result } }},

@@ -115,12 +115,12 @@ app.get('/sw.js',function(req,res){
     res.sendFile(__dirname+'/sw.js');
 });
 
-app.get('/main.js',function(req,res){
-    res.sendFile(__dirname+'/main.js');
-});
-
 app.get('/app.js',function(req,res){
     res.sendFile(__dirname+'/app.js');
+});
+
+app.get('/main.js',function(req,res){
+    res.sendFile(__dirname+'/main.js');
 });
 
 app.get('/main.html',function(req,res){

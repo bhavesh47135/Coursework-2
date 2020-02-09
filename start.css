@@ -11,30 +11,6 @@
     max-height: 100%;
     margin: auto;
 }
-.button1 {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 50px;
-}
-.button2 {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 50px;
-}
-.button3 {
-    font-size: 30px;
-}
-.proceed {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 30px;
-}
 .signup {
     position: absolute;
     top: 50%;

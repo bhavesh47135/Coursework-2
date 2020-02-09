@@ -36,21 +36,6 @@ var searchApp = new Vue ({
     }
 })
 
-var providerApp = new Vue ({
-    el: '#searchProvider',
-    data: {
-        courses: [],
-        Data: Data,
-    },
-    methods: {
-        loadCourses: function() {
-            fetch('http://localhost:3000/courses').then(
-                function (response) {
-                    response.json().then(
-                        function (text) {
-                            providerApp.courses = text;
-                    });
-            })
-        }
-    }
-})
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+};

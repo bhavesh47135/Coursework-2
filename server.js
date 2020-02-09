@@ -4,9 +4,9 @@ const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const _ = require('underscore');
+const _ = require('underscore'); // All Dependencies
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000); // Port that the app will be accessed on
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -18,16 +18,17 @@ app.use(function(req, res, next) {
 
 app.listen(3000, function() {
     console.log('Port 3000 is open.')
-});
+}); // Check that the port is open
 
 fetch('http://localhost:3000').then(
-    function() {console.log("Running at localhost:3000");
-});
+    function() {
+        console.log("Running at localhost:3000");
+}); // Check if the app returns a response and log in the console if a response is fetched 
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/app", {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false})
 .then(()=> console.log("MongoDB Database Connected!"))
-.catch(error => console.log(error));
+.catch(error => console.log(error)); // Use Mongoose to connect to the MongoDB database (called app), log in the console if successfully connected
 
 const userSchema = new Schema({
     username:{
@@ -49,7 +50,7 @@ const userSchema = new Schema({
     versionKey: false
 });
 const User = mongoose.model("User", userSchema, "users");
-module.exports = User;
+module.exports = User; // Schema for the user which are stored in the "users" collection
 
 const courseSchema = new Schema({
     topic:{
@@ -82,7 +83,7 @@ const courseSchema = new Schema({
     versionKey: false
 });
 const Course = mongoose.model("Course", courseSchema, "courses");
-module.exports = Course;
+module.exports = Course; // Schema for courses which are stored in the "courses" collection
 
 app.get("/courses", function(req, res) {
     Course.find({}, function(err, data){

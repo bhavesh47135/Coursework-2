@@ -43,3 +43,29 @@ li a {
     margin: 10px;
     padding: 10px;
 }
+
+.course-images{
+	float: right;
+	min-width: 100px;
+    min-width: 300px;
+    max-height: 300px;
+	padding-bottom: 1em;
+}
+
+article {
+	border-top: 0.1em solid #acabab;
+	padding: 1em;
+}
+
+.courses-list{
+    min-width: 200px;
+}
+
+article img[data-src] {
+    filter: blur(0.2em);
+}
+
+article img {
+    filter: blur(0em);
+    transition: filter 0.5s;
+}

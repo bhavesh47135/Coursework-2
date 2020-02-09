@@ -107,6 +107,22 @@ app.get('/',function(req,res){
     res.sendFile(__dirname+'/login.html');
 });
 
+app.get('/CW2.webmanifest',function(req,res){
+    res.sendFile(__dirname+'/CW2.webmanifest');
+});
+
+app.get('/sw.js',function(req,res){
+    res.sendFile(__dirname+'/sw.js');
+});
+
+app.get('/main.js',function(req,res){
+    res.sendFile(__dirname+'/main.js');
+});
+
+app.get('/app.js',function(req,res){
+    res.sendFile(__dirname+'/app.js');
+});
+
 app.get('/main.html',function(req,res){
     res.sendFile(__dirname+'/main.html');
 });

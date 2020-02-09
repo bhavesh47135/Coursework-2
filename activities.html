@@ -7,6 +7,7 @@
     <title> School Activities </title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="manifest" href="CW2.webmanifest">
 </head>
 
 <body>
@@ -39,6 +40,22 @@
 
         <div class="item3">
 
+            <button id="notifications">Request dummy notifications</button>
+            
+            <h1>All Courses</h1>
+            <section id="content">
+                <!-- Content will be inserted from main.js -->
+                <article v-for="course in courses">
+                    <img class="course-images" src="/placeholder.png" :data-src="'/'+course.image+'.jpg'" :alt="course.topic">
+                    <ul class="courses-list">
+                        <li>Topic: <strong>{{course.topic}}</strong></li>
+                        <li>Price: {{course.price}}</li>
+                        <li>Location: {{course.location}}</li>
+                        <li>Provider: {{course.provider}}</li>
+                    </ul>
+                </article>
+            </section>
+
             <h1>Search Classes</h1>
             <div id="search">
                 <div>
@@ -49,9 +66,7 @@
                     <h2>Course List</h2>
                     <Button @click='loadCourses'>Display all courses</Button> <br>
                     <div v-for="course in filteredList" class="course">
-                        <ul>
-                            <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
-                        </ul>
+                        <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
                     </div>
                 </div>
             </div> <br>
@@ -67,6 +82,7 @@
         </div>
     </div>
     <script src="main.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>

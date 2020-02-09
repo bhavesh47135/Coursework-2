@@ -1,0 +1,14 @@
+{
+    "name": "CW2 Progressive Web App",
+    "short_name": "CW2PWA",
+    "description": "Progressive Web App where students can find courses.",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/login.html",
+    "display": "fullscreen"
+}

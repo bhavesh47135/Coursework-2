@@ -1,10 +1,7 @@
-const Data = {topic: 'example', price: 'example', location: 'example', provider: 'example'};
-
 var searchApp = new Vue ({
     el: '#search',
     data: {
         courses: [],
-        Data: Data,
         searchBar: '',
     },
     methods: {
@@ -36,6 +33,112 @@ var searchApp = new Vue ({
     }
 })
 
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
+var courses = [
+    {
+        image: "img1",
+        topic: "Math",
+        price: "100",
+        location: "Hendon",
+        provider: "Hendon Maths Group"
+    },
+    {
+        image: "img2",
+        topic: "Math",
+        price: "80",
+        location: "Colindale",
+        provider: "Maths Tuition"
+    },
+    {
+        image: "img3",
+        topic: "Art",
+        price: "90",
+        location: "Brent Cross",
+        provider: "Art Club"
+    },
+    {
+        image: "img4",
+        topic: "Math",
+        price: "120",
+        location: "Golders Green",
+        provider: "Maths Tuition"
+    },
+    {
+        image: "img5",
+        topic: "English",
+        price: "110",
+        location: "Hendon",
+        provider: "English Tuition"
+    },
+    {
+        image: "img6",
+        topic: "Chemistry",
+        price: "90",
+        location: "Colindale",
+        provider: "Science Club"
+    },
+    {
+        image: "img7",
+        topic: "English",
+        price: "90",
+        location: "Brent Cross",
+        provider: "English Tuition"
+    },
+    {
+        image: "img8",
+        topic: "English",
+        price: "130",
+        location: "Golders Green",
+        provider: "English Tuition"
+    },
+    {
+        image: "img9",
+        topic: "Biology",
+        price: "120",
+        location: "Hendon",
+        provider: "Science Club"
+    },
+    {
+        image: "img10",
+        topic: "Chemistry",
+        price: "140",
+        location: "Golders Green",
+        provider: "Science Club"
+    }
+]
+
+const courseApp = new Vue({
+    el: '#content',
+    data: {
+        courses: courses
+    }
+})
+
+let imagesToLoad = document.querySelectorAll('img[data-src]');
+const loadImages = (image) => {
+    image.setAttribute('src', image.getAttribute('data-src'));
+    image.onload = () => {
+        image.removeAttribute('data-src');
+    };
 };
+
+imagesToLoad.forEach((img) => {
+    loadImages(img);
+});
+
+if('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((items, observer) => {
+        items.forEach((item) => {
+            if(item.isIntersecting) {
+                loadImages(item.target);
+                observer.unobserve(item.target);
+            }
+        });
+    });
+    imagesToLoad.forEach((img) => {
+        observer.observe(img);
+    });
+} else {
+    imagesToLoad.forEach((img) => {
+            loadImages(img);
+    });
+}
